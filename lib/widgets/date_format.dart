@@ -53,11 +53,6 @@ class DateFormatter extends TextInputFormatter {
       if (y1 < 1 || y1 > 2) {
         currText = currText.substring(0, 6);
       }
-    } else if (currLen == 8) {
-      int y2 = int.parse(currText.substring(6, 8));
-      if (y2 < 12 || y2 > 20) {
-        currText = currText.substring(0, 7);
-      }
     } else if (currLen == 11) {
       currText = currText.substring(0, 10);
     }
