@@ -1,6 +1,33 @@
 import 'package:flutter/services.dart';
 
 class DateFormatter extends TextInputFormatter {
+  String generateDateFormat(String input) {
+    int controllerLen = input.length;
+    if (controllerLen == 0) {
+      return "DD/MM/YYYY";
+    } else if (controllerLen == 1) {
+      return '     /MM/YYYY';
+    } else if (controllerLen == 2) {
+      return '     /MM/YYYY';
+    } else if (controllerLen == 3) {
+      return '       MM/YYYY';
+    } else if (controllerLen == 4) {
+      return '             /YYYY';
+    } else if (controllerLen == 5) {
+      return '             /YYYY';
+    } else if (controllerLen == 6) {
+      return '              YYYY';
+    } else if (controllerLen == 7) {
+      return '                    ';
+    } else if (controllerLen == 8) {
+      return '                    ';
+    } else if (controllerLen == 9) {
+      return '                    ';
+    } else {
+      return "";
+    }
+  }
+
   @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
