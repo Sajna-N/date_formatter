@@ -3,14 +3,34 @@ import 'package:dob_task/bloc/date_event.dart';
 import 'package:dob_task/bloc/date_state.dart';
 import 'package:dob_task/widgets/date_format.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class DobScreen extends StatelessWidget {
   const DobScreen({Key? key}) : super(key: key);
+  static List<TextInputFormatter> dob = <TextInputFormatter>[
+    LengthLimitingTextInputFormatter(10),
+    FilteringTextInputFormatter.allow(RegExp("[0-9/]")),
+    DateFormatter()
+  ];
+  static List<String> dateModal = [
+    'D',
+    'D',
+    '/',
+    'M',
+    'M',
+    '/',
+    'Y',
+    'Y',
+    'Y',
+    'Y'
+  ];
 
   @override
   Widget build(BuildContext context) {
+    print(dateModal.elementAt(4));
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Enter your Details'),
@@ -20,7 +40,10 @@ class DobScreen extends StatelessWidget {
         child: BlocBuilder<DobBloc, DobState>(
           builder: (context, state) {
             final TextEditingController controller = TextEditingController();
+            // TextEditingController textEditingController =
+            //     TextEditingController();
             final DateFormatter dateFormatter = DateFormatter();
+            print(controller.text.length);
 
             void presentDatePicker() {
               showDatePicker(
@@ -53,20 +76,32 @@ class DobScreen extends StatelessWidget {
                       ValueListenableBuilder(
                         valueListenable: controller,
                         builder: (context, snapshot, _) {
-                          return Text(
-                            dateFormatter.generateDateFormat(controller.text),
-                            style: const TextStyle(color: Colors.grey),
+                          return Row(
+                            children: [
+                              // Text(
+                              //   controller.text,
+                              //   style: const TextStyle(color: Colors.red),
+                              // ),
+                              Text(
+                                dateFormatter
+                                    .generateDateFormat(controller.text),
+                                style: const TextStyle(
+                                    color: Colors.grey, fontSize: 14),
+                              ),
+                            ],
                           );
                         },
                       ),
                       TextField(
                         controller: controller,
-                        keyboardType: TextInputType.datetime,
-                        inputFormatters: [DateFormatter()],
+                        keyboardType: const TextInputType.numberWithOptions(
+                            decimal: false),
+                        inputFormatters: dob,
                         onChanged: (text) {
                           BlocProvider.of<DobBloc>(context)
                               .add(DobDateChanged(date: text));
                         },
+                        style: const TextStyle(fontSize: 14),
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
                             onPressed: presentDatePicker,
@@ -77,10 +112,6 @@ class DobScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                // Text(
-                //   state.date,
-                //   style: const TextStyle(color: Colors.black),
-                // ),
               ],
             );
           },

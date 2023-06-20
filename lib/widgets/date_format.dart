@@ -1,28 +1,21 @@
 import 'package:flutter/services.dart';
 
 class DateFormatter extends TextInputFormatter {
+  List<String> dateModal = ['D', 'D', '/', 'M', 'M', '/', 'Y', 'Y', 'Y', 'Y'];
   String generateDateFormat(String input) {
+    print(input.length);
+    print(dateModal.elementAt(4));
     int controllerLen = input.length;
     if (controllerLen == 0) {
-      return "DD/MM/YYYY";
-    } else if (controllerLen == 1) {
-      return '     /MM/YYYY';
-    } else if (controllerLen == 2) {
-      return '     /MM/YYYY';
-    } else if (controllerLen == 3) {
-      return '       MM/YYYY';
-    } else if (controllerLen == 4) {
-      return '             /YYYY';
-    } else if (controllerLen == 5) {
-      return '             /YYYY';
-    } else if (controllerLen == 6) {
-      return '              YYYY';
-    } else if (controllerLen == 7) {
-      return '                    ';
-    } else if (controllerLen == 8) {
-      return '                    ';
-    } else if (controllerLen == 9) {
-      return '                    ';
+      return dateModal.join();
+    } else if (controllerLen <= dateModal.length) {
+      List<String> formattedDate = List.from(dateModal);
+
+      for (int i = 0; i < controllerLen; i++) {
+        formattedDate[i] = input[i];
+      }
+
+      return formattedDate.join();
     } else {
       return "";
     }

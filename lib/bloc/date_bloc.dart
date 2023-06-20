@@ -3,11 +3,11 @@ import 'package:dob_task/bloc/date_event.dart';
 import 'package:dob_task/bloc/date_state.dart';
 
 class DobBloc extends Bloc<DobEvent, DobState> {
-  DobBloc() : super(DobState(dateFormatted: ''));
+  // DobBloc() : super(DobState(dateFormatted: ''));
 
-  Stream<DobState> mapEventToState(DobEvent event) async* {
-    if (event is DobDateChanged) {
-      yield DobState(dateFormatted: event.date);
-    }
+  DobBloc() : super(DobState(dateFormatted: '')) {
+    on<DobDateChanged>((event, emit) async* {
+      emit(DobState(dateFormatted: event.date));
+    });
   }
 }
