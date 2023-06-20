@@ -14,23 +14,9 @@ class DobScreen extends StatelessWidget {
     FilteringTextInputFormatter.allow(RegExp("[0-9/]")),
     DateFormatter()
   ];
-  static List<String> dateModal = [
-    'D',
-    'D',
-    '/',
-    'M',
-    'M',
-    '/',
-    'Y',
-    'Y',
-    'Y',
-    'Y'
-  ];
 
   @override
   Widget build(BuildContext context) {
-    print(dateModal.elementAt(4));
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Enter your Details'),
